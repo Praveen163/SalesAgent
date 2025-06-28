@@ -8,6 +8,15 @@ load_dotenv()
 # Set your Gemini API key
 os.environ["GOOGLE_API_KEY"] = os.getenv("GEMINI_API_KEY")
 
+
+#PDF FILE URLs
+pdf_files = [
+    "/docs/part-a.pdf",
+    "/docs/part-b.pdf",
+    "/docs/brochure.pdf"
+]
+
+
 def extract_text_from_pdf(file_path):
     reader = PdfReader(file_path)
     text = ""
@@ -15,15 +24,6 @@ def extract_text_from_pdf(file_path):
         text += page.extract_text()
     return text
 
-
-
-
-
-pdf_files = [
-    "/docs/part-a.pdf",
-    "/docs/part-b.pdf",
-    "/docs/brochure.pdf"
-]
 
 # Step 2: Extract and combine text from all files
 all_texts = []

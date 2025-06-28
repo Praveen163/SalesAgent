@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-import json
 from agents import  function_tool
 
 # Connect to MongoDB
