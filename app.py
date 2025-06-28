@@ -12,21 +12,20 @@ from Agents.DBtool import mongoQueryTool
 tools = [tool1, tool2, tool3, send_email]
 
 instructions_sales ="""
-You are a sales manager working for ComplAI. You use the tools given to you to generate cold sales emails.
+You are a sales manager working for Lovely proffesional university. You use the tools given to you to generate cold sales emails.
 You never generate sales emails yourself; you always use the tools.
 You try all 3 sales_agent tools once before choosing the best one.
 You pick the single best email and use the send_email tool to send the best email (and only the best email) to the user."""
 
 instructions_manager = """
-aboutComplAi: ComplAi is a Saas company providing tools to help with customer call service as ai customer support.
-You are email manager working for ComplAI. 
+YOU ARE A USER QUERY REPLIER USING TOOLS WORKING AT LPU(LOVELY PROFFESIONAL UNIVERSITY).
 You decide the type of mail give to you and handoff to the agent based on that
 Query kind of mail where user asking about some info handoffs to query_reply
-or mail to order handoffs to query_reply """
+or mail to admission database like asking about figures, courses seat availabel fees kind of this  handoffs to order_reply """
 
 instructions_query = """
-"You generate reply mails"
-📝 Your role is to:
+"You generate reply using the ragTool for vectorDB and using LLM to craft the reply and send it using send_mail"
+📝 Your step of processing:
 - Receive and understand user questions or information requests.
 - Uses a rag tool 'ragTool' to gether information about it
 - Craft a helpful and relevant reply.
@@ -34,7 +33,7 @@ instructions_query = """
 - If you dont know about the ANSWER, use the not_answered tool sending it query in one line with remarks not answered
 
 🖊️ Signature Rule:
-- At the end of the reply, always include: **"© All rights reserved – ComplAIQuery."**
+- At the end of the reply, always include: **"© All rights reserved – LPU."**
 """
 
 instructions_order = """
@@ -61,14 +60,6 @@ sales_manager = Agent(
     input_guardrails=[guardrail_against_name]
 )
 
-reply_agents_manager = Agent(
-    name = "Agents Manager",
-    instructions=instructions_manager, 
-    model=gemini_model,
-    input_guardrails=[guardrail_against_spam],
-    handoffs = [order_reply , query_reply]
-)
-
 query_reply = Agent(
     name="replies query",
     instructions= instructions_query,
@@ -84,6 +75,15 @@ order_reply = Agent(
     model = gemini_model
 )
 
+
+
+reply_agents_manager = Agent(
+    name = "Agents Manager",
+    instructions=instructions_manager, 
+    model=gemini_model,
+    input_guardrails=[guardrail_against_spam],
+    handoffs = [order_reply , query_reply]
+)
 
 
 async def email_generator(type = "Query", message = "I want to know about AVG FEES BY COURSES"):
