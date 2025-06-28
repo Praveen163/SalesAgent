@@ -14,8 +14,6 @@ aiagentSales is an AI-driven platform designed to automate and enhance sales ema
 
 ## Project Structure
 ```
-aiagentSales/
-  ai/
     SalesAgent/
       app.py                # Main application entry point
       requirements.txt      # Python dependencies
